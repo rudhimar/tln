@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <title>TLN - Teste Lógico Numérico</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f4f8ff;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        max-width: 520px;
+        margin: 40px auto;
+        background: #fff;
+        padding: 30px 25px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 80, 0.08);
+        border: 2px solid #1976d2;
+      }
+      h1 {
+        color: #1976d2;
+        text-align: center;
+      }
+      .linha {
+        margin-bottom: 18px;
+      }
+      label {
+        font-weight: bold;
+        color: #1976d2;
+        display: inline-block;
+        width: 110px;
+      }
+      input[type="text"] {
+        width: 320px;
+        padding: 7px;
+        border: 1px solid #1976d2;
+        border-radius: 4px;
+      }
+      input[type="submit"] {
+        background: #1976d2;
+        color: #fff;
+        border: none;
+        padding: 10px 18px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+        margin-top: 18px;
+        transition: background 0.2s;
+      }
+      input[type="submit"]:hover {
+        background: #0d47a1;
+      }
+      p {
+        text-align: justify;
+      }
+    </style>
+    <script>
+      const respHash = {
+        1: "9325bb0364d5eddb9d7446bc826c567f361ca6b9",
+        2: "0db581893193e7fe4bcd543e889651e7a6cf64e4",
+        3: "200f0641be505c34c55b45bd64d09855d1e8bc53",
+        4: "2f7136c4cb001394e38f4e0999c004f2ac81d0b9",
+        5: "04009a50848eb30d9d094cb585dfc828129e436e",
+        6: "c27669b0419d64cdea4389030947dca7e7f42006",
+        7: "6440a5f28ea204b78f994514c7c72dc1a809bf2f",
+        8: "5467b9da6d91582bf46acd4c4927d5998a53d1a1",
+        9: "af526a7006ec7ab0cf2c17ff9719479877d989a4",
+        10: "3ff4f2ee464c3bd015c267a3c7a8adaa7749b912",
+        11: "ca7c5633fefbef5c1c16f1bd7dac1e88b68504e3",
+        12: "647e2991119182f2d55f6e35e64a285b3fdca3d3",
+        13: "34b619aba76c01311b5e6451a8aebf31b9cbe177",
+        14: "bc980b34be17538bfe962cf5c151e2db7e4da42c",
+        15: "4efa889ab5f10a619a89d0d8fc6f8ff1d48d23ea",
+        16: "d92bbc489912bc683495943ce5db5fd736da86b6",
+        17: "b1b12eecd10288c4c7d03e71e2569fdd34b6415e",
+        18: "f5af11ab86613c8cf76c5e5febada1a3692e0247",
+        19: "817b8da67d009d373726635174d6699e58a84582",
+        20: "98bc19aab115bb720072caad1ec626ed7a77ed14",
+        21: "a2b2f6a4cb38652d4fe1b8d4888c216744fb2d74",
+        22: "7c9ee5ac05b9617e5199d21d7ae79eaeb4191d0d",
+        23: "3a75802a8c954042c9d10159c592eec45f76954b",
+        24: "b2001aa2e3ab2984ba71e5d163b2fdaa34436761",
+        25: "32db9cb3e8a2600a72f94db8a7e95eaeb4da3369",
+        26: "8a94eb775b3fa80ef33a2252e1a3d9cb11201db9",
+      };
+
+      const valores = [
+        0.237068966, 0.237068966, 0.474137931, 1.422413793, 0.948275862,
+        0.474137931, 1.422413793, 1.896551724, 2.370689655, 2.370689655,
+        3.318965517, 3.318965517, 2.844827586, 0.474137931, 2.370689655,
+        3.793103448, 3.318965517, 1.896551724, 2.370689655, 4.267241379,
+        1.422413793, 2.370689655, 3.318965517, 0.948275862, 4.267241379,
+        2.844827586,
+      ];
+
+      async function gerarHashSHA1String(valor) {
+        const encoder = new TextEncoder();
+        const data = encoder.encode(valor);
+        const hashBuffer = await crypto.subtle.digest("SHA-1", data);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        const hashHex = hashArray
+          .map((b) => b.toString(16).padStart(2, "0"))
+          .join("");
+        return hashHex;
+      }
+
+      async function verificarRespostas() {
+        const totalQuestoes = 26; // Total de questões
+        const respostas = [];
+        let contador = 0;
+        let pontos = 0;
+
+        for (let i = 1; i <= totalQuestoes; i++) {
+          const input = document.getElementById("q" + i);
+          const resp = input.value;
+          respostas[i - 1] = await gerarHashSHA1String(resp);
+        }
+
+        for (let i = 0; i < totalQuestoes; i++) {
+          const resposta = respostas[i];
+          if (resposta == respHash[i + 1]) {
+            contador++;
+            pontos += valores[i];
+          }
+        }
+
+        const acertos = document.getElementById("acertos");
+        acertos.innerHTML = contador + " acertos";
+
+        const qi = document.getElementById("qi");
+        qi.innerHTML = "QI: " + 10 + pontos;
+      }
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>TLN - Teste Lógico Numérico &#169;</h1>
+      <em>Criado por Rudimar Schmitz - 20/06/2025</em>
+      <h3>Sobre o teste</h3>
+      <p>
+        Este teste usa raciocínio lógico e numérico para avaliar oseu potencial
+        QI. Apenas noções básicas de matemática são necessárias para responder
+        às questões, isto é, não é necessário ter conhecimento avançado em
+        matemática, as quatro operações básicas (adição, subtração,
+        multiplicação e divisão) são suficientes.
+      </p>
+      <p>
+        A capacidade do teste de prever com alta precisão o QI do indivíduo tem
+        um limite de 3 desvios padrão (3σ), ou seja, 145, em relação à média da
+        população, que é de 100. No entanto, essa capacidade de avaliação para
+        um QI lógico numérico sobe para 3,6 desvios padrão (3,6σ), ou seja, 155.
+        Se você não acertar nenhuma questão, seu QI estimado será de 100 (pode
+        ser que seja menor, portanto).
+      </p>
+      <p>
+        IMPORTANTE: caso encontre alguma outra lógica e tenha certeza de que
+        suas respostas estão corretas, por favor, entre em contato comigo
+        através do e-mail:
+        <code>s+k*a{l!i+q*7{g!m+a*i{l*.com</code> (remova os caracteres
+        especiais e subsitua o número 7 pelo arroba @. O e-mail está escrito
+        desta forma para evitar que robôs de spam o capturem). Assim, poderei
+        corrigir o teste e melhorar a experiência. Grato.
+      </p>
+      <h3>Orientações (leia e me agradeça depois)</h3>
+      <p>
+        [1] IMPORTANTE: Este teste é composto por 26 questões. Responda cada uma delas com o número ou os números que você acredita ser a resposta correta. Quando houver mais de uma resposta, separe-as por vírgula, deixando um espaço depois da vírgula. Exemplo: Resposta encontrada por você: 111 e 123. Neste caso, coloque a resposta como: 111, 123 (número, vírgula, espaço, número). Se for apenas um número, basta digitar esse número. Se forem três, lembre de separá-los por vírgula e espaço depois da vírgula. Exemplo: 54, 32, 7<br /><br />Se você não informar a resposta como descrito acima, mesmo que você acerte os números, o sistema não será capaz de validar sua resposta corretamente, portanto, preste atenção às instruções. Se você não souber a resposta, deixe o campo em branco.
+      </p>
+      <p>
+        [2] Para aqueles que sabem um pouco de programação, notarão que as
+        respostas estão disponíveis no código fonte da página, na variável
+        <code>respHash</code>. As respostas estão em formato hash SHA-1,
+        portanto, você não conseguirá ver as respostas diretamente. Você deve
+        responder às questões e verificar se suas respostas estão corretas.
+      </p>
+      <p>
+        [3] Ao clicar no botão "Enviar Respostas", o total de acertos será
+        mostrado, bem como um QI estimado baseado no número de acertos e  pesos de cada questão. Você pode realizar o teste quantas vezes quiser, mas lembre-se de que as respostas corretas não mudarão. Portanto, se você já fez o teste e sabe as respostas, não será necessário fazê-lo novamente. O objetivo é testar seu raciocínio lógico e numérico, não apenas memorizar as respostas.
+      </p>
+      <p>
+        [4] ATENÇÃO: se a sequência contiver outros símbolos além de números, como letras ou caracteres especiais, você deve dar a resposta usando estes símbolos. Por exemplo: [321:4], [534:3], [879:-7], [151617:-32], [313332:-33]. Neste caso, você deve responder exatamente como está, incluindo os colchetes e os dois pontos. Por exemplo, digamos que a resposta seja [123:4]. Você deve digitar exatamente assim, incluindo os colchetes e o dois pontos. Se você não fizer isso, o sistema não conseguirá validar sua resposta corretamente.
+      </p>
+      <h2>Início do Teste</h2>
+      <div class="linha">
+        <div class="enunciado">1] 1, ?, 4, 8, ?, 32, 64</div>
+        <label for="q1">Resposta 1</label>
+        <input type="text" id="q1" name="q1" />
+      </div>
+      <div class="linha">
+        <div class="enunciado">2] 1, 2, 4, ?, 11, 16, 22, ?</div>
+        <label for="q2">Resposta 2</label>
+        <input type="text" id="q2" name="q2" />
+      </div>
+      <div class="linha">
+        <div class="enunciado">3] 123, 444, ?, 1086, ?, 1728</div>
+        <label for="q3">Resposta 3</label>
+        <input type="text" id="q3" name="q3" />
+      </div>
+      <div class="linha">
+        <div class="enunciado">4] 123, 444, 888, ?, 8547, 16005, ?</div>
+        <label for="q4">Resposta 4</label>
+        <input type="text" id="q4" name="q4" />
+      </div>
+      <div class="linha">
+        <div class="enunciado">5] 1, 23, 456, ?, ?, 161718192021</div>
+        <label for="q5">Resposta 5</label>
+        <input type="text" id="q5" name="q5" />
+      </div>
+      <div class="linha">
+        <div class="enunciado">6] 2, 6, 12, 20, ?, 42, 56, 72, 90, ?</div>
+        <label for="q6">Resposta 6</label>
+        <input type="text" id="q6" name="q6" />
+      </div>
+      <div class="linha">
+        <div class="enunciado">7] 1234, ?, 3412, 4123, ?</div>
+        <label for="q7">Resposta 7</label>
+        <input type="text" id="q7" name="q7" />
+      </div>
+      <div class="linha">
+        <div class="enunciado">8] 235753, 5812, ?, 16, ?</div>
+        <label for="q8">Resposta 8</label>
+        <input type="text" id="q8" name="q8" />
+      </div>
+      <div class="linha">
+        <div class="enunciado">9] 12, 47, ?, 2229, 3746, 5667, ?, 106121</div>
+        <label for="q9">Resposta 9</label>
+        <input type="text" id="q9" name="q9" />
+      </div>
+      <div class="linha">
+        <div class="enunciado">
+          10] 1, 21, ?, 4213, 42135, ?, 6421357, 86421357
+        </div>
+        <label for="q10">Resposta 10</label>
+        <input type="text" id="q10" name="q10" />
+      </div>
+      <div class="linha">
+        <div class="enunciado">11] 7, 5, 3, ?, 8, ?, 13, 11, 9, 7</div>
+        <label for="q11">Resposta 11</label>
+        <input type="text" id="q11" name="q11" />
+      </div>
+      <div class="linha">
+        <div class="enunciado">
+          12] 1234, ?, 2468, 44128, 481216, ?, 8162432
+        </div>
+        <label for="q12">Resposta 12</label>
+        <input type="text" id="q12" name="q12" />
+      </div>
+      <div class="linha">
+        <div class="enunciado">13] 123, 276, 2052, 10660, ?, 250467360</div>
+        <label for="q13">Resposta 13</label>
+        <input type="text" id="q13" name="q13" />
+      </div>
+      <div class="linha">
+        <div class="enunciado">
+          14] 22222, 22221, 2222, ?, 222, 221, 22, 21, ?, 1
+        </div>
+        <label for="q14">Resposta 14</label>
+        <input type="text" id="q14" name="q14" />
+      </div>
+      <div class="linha">
+        <div class="enunciado">
+          15] 4.14.15.1, 9.7.6.12, 5.11.10.?, 16.?.3.13
+        </div>
+        <label for="q15">Resposta 15</label>
+        <input type="text" id="q15" name="q15" />
+      </div>
+      <div class="linha">
+        <div class="enunciado">16] 1, 256, ?, 4096, 3125, 1296, 343, ?, 9</div>
+        <label for="q16">Resposta 16</label>
+        <input type="text" id="q16" name="q16" />
+      </div>
+      <div class="linha">
+        <div class="enunciado">17] 31, 62, 93, ?, 56, 87, 19, ?, 711</div>
+        <label for="q17">Resposta 17</label>
+        <input type="text" id="q17" name="q17" />
+      </div>
+      <div class="linha">
+        <div class="enunciado">
+          18] 816, ?, 4048, 5664, 7280, 8896, ?, 120128
+        </div>
+        <label for="q18">Resposta 18</label>
+        <input type="text" id="q18" name="q18" />
+      </div>
+      <div class="linha">
+        <div class="enunciado">
+          19] 12, 27, ?, 135, 279, ?, 1170, 2349, 4716
+        </div>
+        <label for="q19">Resposta 19</label>
+        <input type="text" id="q19" name="q19" />
+      </div>
+      <div class="linha">
+        <div class="enunciado">
+          20] [321:4], [534:3], [879:-7], [151617:-32], [313332:-33], ?
+        </div>
+        <label for="q20">Resposta 20</label>
+        <input type="text" id="q20" name="q20" />
+      </div>
+      <div class="linha">
+        <div class="enunciado">
+          21] 1, 2, 35, 46, 7911, 81012, 13151719, 14161820, ?
+        </div>
+        <label for="q21">Resposta 21</label>
+        <input type="text" id="q21" name="q21" />
+      </div>
+      <div class="linha">
+        <div class="enunciado">
+          22] 222, ?, 1448, 17128, ?, 1418, 1432, 1024, ?
+        </div>
+        <label for="q22">Resposta 22</label>
+        <input type="text" id="q22" name="q22" />
+      </div>
+      <div class="linha">
+        <div class="enunciado">23] 109989, ?, 4235, 1815, ?</div>
+        <label for="q23">Resposta 23</label>
+        <input type="text" id="q23" name="q23" />
+      </div>
+      <div class="linha">
+        <div class="enunciado">
+          24] 17, 149, 11681, 1136641, ?, 11819369361361
+        </div>
+        <label for="q24">Resposta 24</label>
+        <input type="text" id="q24" name="q24" />
+      </div>
+      <div class="linha">
+        <div class="enunciado">
+          25] 60:10, 65:15, 125:25, 240:40, 60:360, ?, 3665:115
+        </div>
+        <label for="q25">Resposta 25</label>
+        <input type="text" id="q25" name="q25" />
+      </div>
+      <div class="linha">
+        <div class="enunciado">
+          26] 11, ?, 3445, 56677, 889911, 0121132, 14315416, ?
+        </div>
+        <label for="q26">Resposta 26</label>
+        <input type="text" id="q26" name="q26" />
+      </div>
+      <input
+        type="submit"
+        value="Enviar Respostas"
+        onclick="verificarRespostas();"
+      />
+
+      <div id="resultado" style="margin-top: 20px; color: #1976d2">
+        <p>Resultado: <span id="acertos"></span></p>
+        <p>QI estimado: <span id="qi"></span></p>
+      </div>
+    </div>
+  </body>
+</html>
