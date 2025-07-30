@@ -2,7 +2,7 @@
 <html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
-    <title>LNT - Logical Numerical Test</title>
+    <title>TLN - Teste Lógico Numérico</title>
     <style>
       body {
         font-family: Arial, sans-serif;
@@ -56,35 +56,132 @@
         text-align: justify;
       }
     </style>
+    <script>
+      const respHash = {
+        1: "9325bb0364d5eddb9d7446bc826c567f361ca6b9",
+        2: "0db581893193e7fe4bcd543e889651e7a6cf64e4",
+        3: "200f0641be505c34c55b45bd64d09855d1e8bc53",
+        4: "2f7136c4cb001394e38f4e0999c004f2ac81d0b9",
+        5: "04009a50848eb30d9d094cb585dfc828129e436e",
+        6: "c27669b0419d64cdea4389030947dca7e7f42006",
+        7: "6440a5f28ea204b78f994514c7c72dc1a809bf2f",
+        8: "5467b9da6d91582bf46acd4c4927d5998a53d1a1",
+        9: "af526a7006ec7ab0cf2c17ff9719479877d989a4",
+        10: "3ff4f2ee464c3bd015c267a3c7a8adaa7749b912",
+        11: "ca7c5633fefbef5c1c16f1bd7dac1e88b68504e3",
+        12: "647e2991119182f2d55f6e35e64a285b3fdca3d3",
+        13: "34b619aba76c01311b5e6451a8aebf31b9cbe177",
+        14: "bc980b34be17538bfe962cf5c151e2db7e4da42c",
+        15: "4efa889ab5f10a619a89d0d8fc6f8ff1d48d23ea",
+        16: "d92bbc489912bc683495943ce5db5fd736da86b6",
+        17: "b1b12eecd10288c4c7d03e71e2569fdd34b6415e",
+        18: "f5af11ab86613c8cf76c5e5febada1a3692e0247",
+        19: "817b8da67d009d373726635174d6699e58a84582",
+        20: "98bc19aab115bb720072caad1ec626ed7a77ed14",
+        21: "a2b2f6a4cb38652d4fe1b8d4888c216744fb2d74",
+        22: "7c9ee5ac05b9617e5199d21d7ae79eaeb4191d0d",
+        23: "3a75802a8c954042c9d10159c592eec45f76954b",
+        24: "b2001aa2e3ab2984ba71e5d163b2fdaa34436761",
+        25: "32db9cb3e8a2600a72f94db8a7e95eaeb4da3369",
+        26: "8a94eb775b3fa80ef33a2252e1a3d9cb11201db9",
+      };
+
+      const valores = [
+        0.237068966, 0.237068966, 0.474137931, 1.422413793, 0.948275862,
+        0.474137931, 1.422413793, 1.896551724, 2.370689655, 2.370689655,
+        3.318965517, 3.318965517, 2.844827586, 0.474137931, 2.370689655,
+        3.793103448, 3.318965517, 1.896551724, 2.370689655, 4.267241379,
+        1.422413793, 2.370689655, 3.318965517, 0.948275862, 4.267241379,
+        2.844827586,
+      ];
+
+      async function gerarHashSHA1String(valor) {
+        const encoder = new TextEncoder();
+        const data = encoder.encode(valor);
+        const hashBuffer = await crypto.subtle.digest("SHA-1", data);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        const hashHex = hashArray
+          .map((b) => b.toString(16).padStart(2, "0"))
+          .join("");
+        return hashHex;
+      }
+
+      async function verificarRespostas() {
+        const totalQuestoes = 26; // Total de questões
+        const respostas = [];
+        let contador = 0;
+        let pontos = 0;
+
+        for (let i = 1; i <= totalQuestoes; i++) {
+          const input = document.getElementById("q" + i);
+          const resp = input.value;
+          respostas[i - 1] = await gerarHashSHA1String(resp);
+        }
+
+        for (let i = 0; i < totalQuestoes; i++) {
+          const resposta = respostas[i];
+          if (resposta == respHash[i + 1]) {
+            contador++;
+            pontos += valores[i];
+          }
+        }
+
+        const acertos = document.getElementById("acertos");
+        acertos.innerHTML = contador + " acertos";
+
+        const qi = document.getElementById("qi");
+        qi.innerHTML = "QI: " + 10 + pontos;
+      }
+    </script>
   </head>
   <body>
     <div class="container">
-      <h1>LNT - Logical Numerical Test &#169;</h1>
-      <em>Created By Rudimar Schmitz - 20/06/2025</em>
-      <h3>About the test</h3>
+      <h1>TLN - Teste Lógico Numérico &#169;</h1>
+      <em>Criado por Rudimar Schmitz - 20/06/2025</em>
+      <h3>Sobre o teste</h3>
       <p>
-        This test uses logical and numerical reasoning to assess your potential IQ. Only basic math knowledge is required to answer the questions—no advanced mathematics is needed. The four basic operations (addition, subtraction, multiplication, and division) are sufficient.
+        Este teste usa raciocínio lógico e numérico para avaliar oseu potencial
+        QI. Apenas noções básicas de matemática são necessárias para responder
+        às questões, isto é, não é necessário ter conhecimento avançado em
+        matemática, as quatro operações básicas (adição, subtração,
+        multiplicação e divisão) são suficientes.
       </p>
       <p>
-        The test's ability to predict an individual's IQ with high accuracy has a limit of 3 standard deviations (3σ), i.e., 145, relative to the population average of 100. However, this assessment capability for logical-numerical IQ extends up to 3.6 standard deviations (3.6σ), i.e., 155. If you answer no questions correctly, your estimated IQ will be 100 (though it could be lower).
+        A capacidade do teste de prever com alta precisão o QI do indivíduo tem
+        um limite de 3 desvios padrão (3σ), ou seja, 145, em relação à média da
+        população, que é de 100. No entanto, essa capacidade de avaliação para
+        um QI lógico numérico sobe para 3,6 desvios padrão (3,6σ), ou seja, 155.
+        Se você não acertar nenhuma questão, seu QI estimado será de 100 (pode
+        ser que seja menor, portanto).
       </p>
       <p>
-        IMPORTANT: If you discover an alternative logic and are confident your answers are correct, please contact me via email: <code>s+ka{l!i+q7{g!m+ai{l.com</code> (remove special characters and replace the number 7 with @). The email is written this way to avoid spam bots. By sending me your answers or comments, I can improve the test. Thank you.
+        IMPORTANTE: caso encontre alguma outra lógica e tenha certeza de que
+        suas respostas estão corretas, por favor, entre em contato comigo
+        através do e-mail:
+        <code>s+k*a{l!i+q*7{g!m+a*i{l*.com</code> (remova os caracteres
+        especiais e subsitua o número 7 pelo arroba @. O e-mail está escrito
+        desta forma para evitar que robôs de spam o capturem). Assim, poderei
+        corrigir o teste e melhorar a experiência. Grato.
       </p>
-      <h3>Instructions (Read Now & Thank Me Later)</h3>
+      <h3>Orientações (leia e me agradeça depois)</h3>
       <p>
-        [1] IMPORTANT: This test consists of 26 questions. Answer each with the number(s) you believe are correct. If there are multiple answers, separate them with a comma and a space.
-Example: If your answer is 111 and 123, enter: 111, 123 (number, comma, space, number). If it's a single number, just type it. For three numbers, separate them with commas and spaces: 54, 32, 7.
-<br /><br />
-If you don’t format your answers as described, even if your numbers are correct, the system will not validate them properly. If you don’t know the answer, leave the field blank.
+        [1] IMPORTANTE: Este teste é composto por 26 questões. Responda cada uma delas com o número ou os números que você acredita ser a resposta correta. Quando houver mais de uma resposta, separe-as por vírgula, deixando um espaço depois da vírgula. Exemplo: Resposta encontrada por você: 111 e 123. Neste caso, coloque a resposta como: 111, 123 (número, vírgula, espaço, número). Se for apenas um número, basta digitar esse número. Se forem três, lembre de separá-los por vírgula e espaço depois da vírgula. Exemplo: 54, 32, 7<br /><br />Se você não informar a resposta como descrito acima, mesmo que você acerte os números, o sistema não será capaz de validar sua resposta corretamente, portanto, preste atenção às instruções. Se você não souber a resposta, deixe o campo em branco.
       </p>
       <p>
-        [2] WARNING: If the sequence contains non-numeric symbols (e.g., letters or special characters), you must include them in your answer.
-Example: [321:4], [534:3], [879:-7], [151617:-32], [313332:-33].
-In this case, you must enter the answer exactly as shown, including brackets and colons.
-Example: If the answer is [123:4], type it exactly like that. Otherwise, the system won’t validate it correctly.
+        [2] Para aqueles que sabem um pouco de programação, notarão que as
+        respostas estão disponíveis no código fonte da página, na variável
+        <code>respHash</code>. As respostas estão em formato hash SHA-1,
+        portanto, você não conseguirá ver as respostas diretamente. Você deve
+        responder às questões e verificar se suas respostas estão corretas.
       </p>
-      <h2>LNT - Logical Numerical Test</h2>
+      <p>
+        [3] Ao clicar no botão "Enviar Respostas", o total de acertos será
+        mostrado, bem como um QI estimado baseado no número de acertos e  pesos de cada questão. Você pode realizar o teste quantas vezes quiser, mas lembre-se de que as respostas corretas não mudarão. Portanto, se você já fez o teste e sabe as respostas, não será necessário fazê-lo novamente. O objetivo é testar seu raciocínio lógico e numérico, não apenas memorizar as respostas.
+      </p>
+      <p>
+        [4] ATENÇÃO: se a sequência contiver outros símbolos além de números, como letras ou caracteres especiais, você deve dar a resposta usando estes símbolos. Por exemplo: [321:4], [534:3], [879:-7], [151617:-32], [313332:-33]. Neste caso, você deve responder exatamente como está, incluindo os colchetes e os dois pontos. Por exemplo, digamos que a resposta seja [123:4]. Você deve digitar exatamente assim, incluindo os colchetes e o dois pontos. Se você não fizer isso, o sistema não conseguirá validar sua resposta corretamente.
+      </p>
+      <h2>Início do Teste</h2>
       <div class="linha">
         <div class="enunciado">1] 1, ?, 4, 8, ?, 32, 64</div>
         <label for="q1">Resposta 1</label>
