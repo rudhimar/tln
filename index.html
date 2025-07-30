@@ -32,28 +32,11 @@
         display: inline-block;
         width: 110px;
       }
-      input[type="text"] {
-        width: 320px;
-        padding: 7px;
-        border: 1px solid #1976d2;
-        border-radius: 4px;
-      }
-      input[type="submit"] {
-        background: #1976d2;
-        color: #fff;
-        border: none;
-        padding: 10px 18px;
-        border-radius: 4px;
-        cursor: pointer;
-        font-weight: bold;
-        margin-top: 18px;
-        transition: background 0.2s;
-      }
-      input[type="submit"]:hover {
-        background: #0d47a1;
-      }
       p {
         text-align: justify;
+      }
+      .enunciado {
+        font-size: 1.2em;
       }
     </style>
   </head>
@@ -63,191 +46,116 @@
       <em>Created By Rudimar Schmitz - 20/06/2025</em>
       <h3>About the test</h3>
       <p>
-        This test uses logical and numerical reasoning to assess your potential IQ. Only basic math knowledge is required to answer the questions—no advanced mathematics is needed. The four basic operations (addition, subtraction, multiplication, and division) are sufficient.
+        This test uses logical and numerical reasoning to assess your potential IQ. Only basic math knowledge is required. The four basic operations (addition, subtraction, multiplication, and division) are sufficient.
       </p>
       <p>
-        The test's ability to predict an individual's IQ with high accuracy has a limit of 3 standard deviations (3σ), i.e., 145, relative to the population average of 100. However, this assessment capability for logical-numerical IQ extends up to 3.6 standard deviations (3.6σ), i.e., 155. If you answer no questions correctly, your estimated IQ will be 100 (though it could be lower).
+        The test's ability to predict an individual's IQ with high accuracy has a limit of 3.333 standard deviations, i.e., 150 (sd = 15), relative to the population average of 100. If you answer no questions correctly, your estimated IQ will be given as < 100 (lower than 100).
       </p>
       <p>
-        IMPORTANT: If you discover an alternative logic and are confident your answers are correct, please contact me via email: <code>s+ka{l!i+q7{g!m+ai{l.com</code> (remove special characters and replace the number 7 with @). The email is written this way to avoid spam bots. By sending me your answers or comments, I can improve the test. Thank you.
-      </p>
-      <h3>Instructions (Read Now & Thank Me Later)</h3>
-      <p>
-        [1] IMPORTANT: This test consists of 26 questions. Answer each with the number(s) you believe are correct. If there are multiple answers, separate them with a comma and a space.
-Example: If your answer is 111 and 123, enter: 111, 123 (number, comma, space, number). If it's a single number, just type it. For three numbers, separate them with commas and spaces: 54, 32, 7.
-<br /><br />
-If you don’t format your answers as described, even if your numbers are correct, the system will not validate them properly. If you don’t know the answer, leave the field blank.
-      </p>
-      <p>
-        [2] WARNING: If the sequence contains non-numeric symbols (e.g., letters or special characters), you must include them in your answer.
-Example: [321:4], [534:3], [879:-7], [151617:-32], [313332:-33].
-In this case, you must enter the answer exactly as shown, including brackets and colons.
-Example: If the answer is [123:4], type it exactly like that. Otherwise, the system won’t validate it correctly.
+        IMPORTANT: send your answers and/or comments to <code>s+ka{l!i+q7{g!m+ai{l.com</code> (remove special characters (keep only letters) and replace the number 7 with @). The email is written this way to avoid spam bots. By sending me your answers or comments, I can improve the test. Thank you.
       </p>
       <h2>LNT - Logical Numerical Test</h2>
       <div class="linha">
         <div class="enunciado">1] 1, ?, 4, 8, ?, 32, 64</div>
-        <label for="q1">Resposta 1</label>
-        <input type="text" id="q1" name="q1" />
       </div>
       <div class="linha">
         <div class="enunciado">2] 1, 2, 4, ?, 11, 16, 22, ?</div>
-        <label for="q2">Resposta 2</label>
-        <input type="text" id="q2" name="q2" />
       </div>
       <div class="linha">
         <div class="enunciado">3] 123, 444, ?, 1086, ?, 1728</div>
-        <label for="q3">Resposta 3</label>
-        <input type="text" id="q3" name="q3" />
       </div>
       <div class="linha">
         <div class="enunciado">4] 123, 444, 888, ?, 8547, 16005, ?</div>
-        <label for="q4">Resposta 4</label>
-        <input type="text" id="q4" name="q4" />
       </div>
       <div class="linha">
         <div class="enunciado">5] 1, 23, 456, ?, ?, 161718192021</div>
-        <label for="q5">Resposta 5</label>
-        <input type="text" id="q5" name="q5" />
       </div>
       <div class="linha">
         <div class="enunciado">6] 2, 6, 12, 20, ?, 42, 56, 72, 90, ?</div>
-        <label for="q6">Resposta 6</label>
-        <input type="text" id="q6" name="q6" />
       </div>
       <div class="linha">
         <div class="enunciado">7] 1234, ?, 3412, 4123, ?</div>
-        <label for="q7">Resposta 7</label>
-        <input type="text" id="q7" name="q7" />
       </div>
       <div class="linha">
         <div class="enunciado">8] 235753, 5812, ?, 16, ?</div>
-        <label for="q8">Resposta 8</label>
-        <input type="text" id="q8" name="q8" />
       </div>
       <div class="linha">
         <div class="enunciado">9] 12, 47, ?, 2229, 3746, 5667, ?, 106121</div>
-        <label for="q9">Resposta 9</label>
-        <input type="text" id="q9" name="q9" />
       </div>
       <div class="linha">
         <div class="enunciado">
           10] 1, 21, ?, 4213, 42135, ?, 6421357, 86421357
         </div>
-        <label for="q10">Resposta 10</label>
-        <input type="text" id="q10" name="q10" />
       </div>
       <div class="linha">
         <div class="enunciado">11] 7, 5, 3, ?, 8, ?, 13, 11, 9, 7</div>
-        <label for="q11">Resposta 11</label>
-        <input type="text" id="q11" name="q11" />
       </div>
       <div class="linha">
         <div class="enunciado">
           12] 1234, ?, 2468, 44128, 481216, ?, 8162432
         </div>
-        <label for="q12">Resposta 12</label>
-        <input type="text" id="q12" name="q12" />
       </div>
       <div class="linha">
         <div class="enunciado">13] 123, 276, 2052, 10660, ?, 250467360</div>
-        <label for="q13">Resposta 13</label>
-        <input type="text" id="q13" name="q13" />
       </div>
       <div class="linha">
         <div class="enunciado">
           14] 22222, 22221, 2222, ?, 222, 221, 22, 21, ?, 1
         </div>
-        <label for="q14">Resposta 14</label>
-        <input type="text" id="q14" name="q14" />
       </div>
       <div class="linha">
         <div class="enunciado">
           15] 4.14.15.1, 9.7.6.12, 5.11.10.?, 16.?.3.13
         </div>
-        <label for="q15">Resposta 15</label>
-        <input type="text" id="q15" name="q15" />
       </div>
       <div class="linha">
         <div class="enunciado">16] 1, 256, ?, 4096, 3125, 1296, 343, ?, 9</div>
-        <label for="q16">Resposta 16</label>
-        <input type="text" id="q16" name="q16" />
       </div>
       <div class="linha">
         <div class="enunciado">17] 31, 62, 93, ?, 56, 87, 19, ?, 711</div>
-        <label for="q17">Resposta 17</label>
-        <input type="text" id="q17" name="q17" />
       </div>
       <div class="linha">
         <div class="enunciado">
           18] 816, ?, 4048, 5664, 7280, 8896, ?, 120128
         </div>
-        <label for="q18">Resposta 18</label>
-        <input type="text" id="q18" name="q18" />
       </div>
       <div class="linha">
         <div class="enunciado">
           19] 12, 27, ?, 135, 279, ?, 1170, 2349, 4716
         </div>
-        <label for="q19">Resposta 19</label>
-        <input type="text" id="q19" name="q19" />
       </div>
       <div class="linha">
         <div class="enunciado">
           20] [321:4], [534:3], [879:-7], [151617:-32], [313332:-33], ?
         </div>
-        <label for="q20">Resposta 20</label>
-        <input type="text" id="q20" name="q20" />
       </div>
       <div class="linha">
         <div class="enunciado">
           21] 1, 2, 35, 46, 7911, 81012, 13151719, 14161820, ?
         </div>
-        <label for="q21">Resposta 21</label>
-        <input type="text" id="q21" name="q21" />
       </div>
       <div class="linha">
         <div class="enunciado">
           22] 222, ?, 1448, 17128, ?, 1418, 1432, 1024, ?
         </div>
-        <label for="q22">Resposta 22</label>
-        <input type="text" id="q22" name="q22" />
       </div>
       <div class="linha">
         <div class="enunciado">23] 109989, ?, 4235, 1815, ?</div>
-        <label for="q23">Resposta 23</label>
-        <input type="text" id="q23" name="q23" />
       </div>
       <div class="linha">
         <div class="enunciado">
           24] 17, 149, 11681, 1136641, ?, 11819369361361
         </div>
-        <label for="q24">Resposta 24</label>
-        <input type="text" id="q24" name="q24" />
       </div>
       <div class="linha">
         <div class="enunciado">
           25] 60:10, 65:15, 125:25, 240:40, 60:360, ?, 3665:115
         </div>
-        <label for="q25">Resposta 25</label>
-        <input type="text" id="q25" name="q25" />
       </div>
       <div class="linha">
         <div class="enunciado">
           26] 11, ?, 3445, 56677, 889911, 0121132, 14315416, ?
         </div>
-        <label for="q26">Resposta 26</label>
-        <input type="text" id="q26" name="q26" />
-      </div>
-      <input
-        type="submit"
-        value="Enviar Respostas"
-        onclick="verificarRespostas();"
-      />
-
-      <div id="resultado" style="margin-top: 20px; color: #1976d2">
-        <p>Resultado: <span id="acertos"></span></p>
-        <p>QI estimado: <span id="qi"></span></p>
       </div>
     </div>
   </body>
